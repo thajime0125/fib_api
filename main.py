@@ -4,7 +4,9 @@ from fastapi.responses import JSONResponse
 app = FastAPI()
 
 def fibonacci(n):
-    if n == 1:
+    if n < 1:
+        return bad_request()
+    elif n == 1:
         return 1
     elif n == 2:
         return 1
@@ -18,11 +20,9 @@ def fibonacci(n):
         return fib
 
 def bad_request():
-    content = {"status": 400, "massage": "Number must be greater than 0"}
+    content = {"status": 400, "massage": "Bad Request"}
     return JSONResponse(status_code=400, content=content)
 
 @app.get("/fib")
 def get_fibonacci(n: int = Query(...)):
-    if n < 1:
-        return bad_request()
     return {"result": fibonacci(n)}
