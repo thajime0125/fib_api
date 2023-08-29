@@ -10,6 +10,7 @@ packages = [{include = "fib_api"}]
 python = "^3.11"
 fastapi = "^0.103.0"
 uvicorn = "^0.23.2"
+httpx = "^0.24.1"
 
 
 [build-system]
