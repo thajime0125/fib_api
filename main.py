@@ -1,11 +1,11 @@
-from fastapi import FastAPI, HTTPException, Query
+from fastapi import FastAPI, HTTPException, Query, Request
 from fastapi.responses import JSONResponse
 
 app = FastAPI()
 
 def fibonacci(n):
     if n < 1:
-        return bad_request()
+        raise HTTPException(status_code=400)
     elif n == 1:
         return 1
     elif n == 2:
@@ -19,9 +19,9 @@ def fibonacci(n):
             an_2 = fib
         return fib
 
-def bad_request():
-    content = {"status": 400, "massage": "Bad Request"}
-    return JSONResponse(status_code=400, content=content)
+@app.exception_handler(HTTPException)
+async def custom_http_exception_handler(request: Request, exc: HTTPException):
+    return JSONResponse(content={"status": 400, "message": "Bad request."}, status_code=exc.status_code)
 
 @app.get("/fib")
 def get_fibonacci(n: int = Query(...)):
