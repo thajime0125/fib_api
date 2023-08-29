@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "fib-api"
+version = "0.1.0"
+description = ""
+authors = ["thajime0125 <thajime0125@gmail.com>"]
+readme = "README.md"
+packages = [{include = "fib_api"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+fastapi = "^0.103.0"
+uvicorn = "^0.23.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
